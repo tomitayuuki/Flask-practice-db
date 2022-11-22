@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 basedir=Path(__file__).parent.parent
 
@@ -9,13 +10,15 @@ class BaseConfig:
 
 # localの設定
 class LocalConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI="postgresql://postgres:postgres@localhost:5432/flask_practice"
+    db_uri = os.environ.get('DATABASE_URL') or "postgresql://postgres:postgres@localhost:5432/flask_practice"
+    SQLALCHEMY_DATABASE_URI=db_uri
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     SQLALCHEMY_ECHO=True
 
 # テストの設定
 class TestingConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI=f"sqlite:///{basedir / 'local.sqlite'}"
+    db_uri = os.environ.get('DATABASE_URL') or "postgresql://postgres:postgres@localhost:5432/flask_practice"
+    SQLALCHEMY_DATABASE_URI=db_uri
     SQLALCHEMY_TRACK_MODIFICATIONS=False
     SQLALCHEMY_ECHO=True
 

@@ -10,10 +10,10 @@ db = SQLAlchemy()
 # CSRFインスタンス（フォーム用）
 csrf = CSRFProtect()
 
-def create_app(config_key):
+def create_app():
     app = Flask(__name__)
     # 設定の登録
-    app.config.from_object(config[config_key])
+    app.config.from_object(config['Testing'])
 
     # データベース登録
     db.init_app(app)
